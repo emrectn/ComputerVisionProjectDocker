@@ -3,20 +3,6 @@
 # COVID APP INSTALLER
 # -----------------------------------------------------------------------------
 
-# -----------------------------------------------------------------------------
-# Create or Update Vision Folder
-# -----------------------------------------------------------------------------
-
-if test -d "vision"; then
-    echo "vision exists."
-	git -C vision/ pull
-
-else
-    echo "vision not exists."
-	git clone #githublink vision
-
-fi
-
 
 # -----------------------------------------------------------------------------
 # Downloand Weights
