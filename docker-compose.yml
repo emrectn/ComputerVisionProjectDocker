@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+    mongodb:
+        image: mongo:latest
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
+            MONGO_INITDB_USERNAME: user
+            MONGO_INITDB_PASSWORD: password
+            MONGO_INITDB_DATABASE: covid19
+            TZ: Europe/Istanbul
+        ports:
+          - 27017:27017
+        restart: always
+        volumes:
+          - mongoDataNew:/data/db
+
+    vision:
+      build: ./vision
+      restart: always
+      command: python watcher.py
+      volumes:
+        - ./vision/:/vision
+        - ./data/:/vision/data
+      environment:
+          MONGO_URI: mongodb://root:password@mongodb:27017/covid19?authSource=admin
+          TZ: Europe/Istanbul
+          DICOM_ROOT: data/raw/
+          DEST: data/processed/
+          MODEL_FILE: models/model.fold_2.best_loss.hdf5
+          NIFTI_ROOT: data/nifti/
+          SC_FOLDER: data/sc/
+ 
+      depends_on:
+        - mongodb
+
+    adminmongo:
+      image: mrvautin/adminmongo
+      ports:
+        - 1234:1234
+      restart: always
+      environment:
+        - HOST=0.0.0.0
+        - CONN_NAME=locale
+        - DB_HOST=mongodb
+        - DB_USERNAME=root
+        - DB_PASSWORD=password
+      depends_on:
+        - mongodb
+
+volumes:
+    mongoDataNew:
+    postgres_data_test:
+
