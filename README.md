@@ -21,4 +21,14 @@ sudo docker-compose up
 http://localhost:1234 Databaseviewer
 ```
 
-# To use the application, move the patient file to the /data/raw folder.
+## Usage
+- Check Docker Container
+  - ![segmentation](docs/0.png)
+
+- Move the patient file to the /data/raw folder. App detect patient folder automatically and start preprocessing.
+  - ![segmentation](docs/1.png)
+
+- The patient Dicom files converts to nifti format.(Dicoms is medical image storing format)
+
+- You can view the results of the prediction operation in "data/processed". There are two folders in "data/processed". "Original" folder contains raw images. Inside the "Result" folder there are segmented results.
+  - ![segmentation](docs/2.png)

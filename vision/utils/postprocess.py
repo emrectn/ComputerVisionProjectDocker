@@ -26,11 +26,6 @@ def clean_patient(patient):
                        .format(patient))
         shutil.rmtree(os.path.join(NIFTI_ROOT, patient))
 
-        # SC
-        my_logger.info("{} dicoms files are removing from raw folder"
-                       .format(patient))
-        shutil.rmtree(os.path.join(SC_FOLDER, patient))
-
     except Exception:
         my_logger.error("Something goes wrong when {} patient cleans"
                         .format(patient), exc_info=True)
